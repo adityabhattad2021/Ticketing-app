@@ -7,7 +7,7 @@ build:
   local:
     push: false
   artifacts:
-    - image: codespacedev/auth
+    - image: adityabhattad/auth
       context: auth
       docker:
         dockerfile: Dockerfile

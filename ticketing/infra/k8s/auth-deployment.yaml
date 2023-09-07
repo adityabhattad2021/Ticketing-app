@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: codespacesdev/auth
+          image: adityabhattad/auth
 ---
 apiVersion: v1
 kind: Service
