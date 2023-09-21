@@ -17,7 +17,7 @@ app.all("*",async () => {
   throw new NotFoundError();
 })
 
-// For error handling
+// For error handling.
 app.use(errorHandler);
 
 const start = async () => {
