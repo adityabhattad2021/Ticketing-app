@@ -1,4 +1,4 @@
 import { errorHandler } from "./error-handlers";
+import { ValidateRequest } from "./validate-requests";
 
-
-export { errorHandler };
+export { errorHandler,ValidateRequest };
