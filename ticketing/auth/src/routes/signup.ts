@@ -22,7 +22,7 @@ ValidateRequest,
 
         if (existingUser) {
             console.log('Email Already in Use');
-            throw new BadRequestError('User with this email alr eady exists');
+            throw new BadRequestError('User with this email already exists');
         }
 
         const user = User.build({
