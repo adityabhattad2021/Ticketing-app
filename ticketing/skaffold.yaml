@@ -15,3 +15,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: adityabhattad/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'app/**/*.{js,ts,jsx,tsx,mdx}'
+            dest: .
