@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: adityabhattad/client
+          image: us.gcr.io/eco-plating-387811/client
 ---
 apiVersion: v1
 kind: Service

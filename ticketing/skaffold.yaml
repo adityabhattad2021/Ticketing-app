@@ -4,10 +4,12 @@ manifests:
   rawYaml:
     - ./infra/k8s/*
 build:
-  local:
-    push: false
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: eco-plating-387811
   artifacts:
-    - image: adityabhattad/auth
+    - image: us.gcr.io/eco-plating-387811/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -15,7 +17,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: adityabhattad/client
+    - image: us.gcr.io/eco-plating-387811/client
       context: client
       docker:
         dockerfile: Dockerfile

@@ -50,7 +50,7 @@ export default function SignUpFrom() {
         console.log(values);
         // make an axios request here
         try {
-
+            
         } catch (error) {
             console.log('[ERROR_IN_SIGNUP_FORM_COMPONENT]', error);
             toast({

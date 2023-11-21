@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: adityabhattad/auth
+          image: us.gcr.io/eco-plating-387811/auth
           env:
             - name: JWT_KEY
               valueFrom: 
