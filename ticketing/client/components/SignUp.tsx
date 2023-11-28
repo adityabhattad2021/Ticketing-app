@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 
 
@@ -35,6 +37,8 @@ const formSchema = z.object({
 
 
 export default function SignUpFrom() {
+
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -50,12 +54,23 @@ export default function SignUpFrom() {
         console.log(values);
         // make an axios request here
         try {
-            
-        } catch (error) {
-            console.log('[ERROR_IN_SIGNUP_FORM_COMPONENT]', error);
+            const response = await axios.post(
+                '/api/users/signup',
+                values
+            )
+            console.log(response);
             toast({
-                variant: "destructive",
-                description: "Something went wrong, please try again later."
+                title:"Welcome",
+                description: "Successfully signed up!"
+            })
+            router.push('/');
+        } catch (error) {
+            // @ts-ignore
+            error.response.data.errors.map(err=>{
+                toast({
+                    variant: "destructive",
+                    description: err.message
+                })
             })
         }
     }

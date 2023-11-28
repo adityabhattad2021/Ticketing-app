@@ -10,7 +10,7 @@ declare global {
 
 let mongo:any;
 beforeAll(async ()=>{
-    process.env.JWT_KEY='asdf'
+    process.env.JWT_KEY='abcd'
     mongo = await MongoMemoryServer.create({
         binary:{
             version:'6.0.4'
