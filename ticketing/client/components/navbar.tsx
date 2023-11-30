@@ -37,8 +37,6 @@ interface NavbarProps {
 export default function Navbar({ currentUser }: NavbarProps) {
 
     const router = useRouter();
-
-    console.log(currentUser===null);
     
     async function onClick(label:string){
         switch(label){
@@ -52,8 +50,8 @@ export default function Navbar({ currentUser }: NavbarProps) {
             }
             case 'Sign Out':{
                 await axios.post('/api/users/signout');
-                router.push('/');
                 router.refresh();
+                router.push('/');
                 break;
             }
             default:{
