@@ -25,3 +25,5 @@ build:
         manual:
           - src: 'app/**/*.{js,ts,jsx,tsx,mdx}'
             dest: .
+          - src: 'components/**/*.{js,ts,jsx,tsx,mdx}'
+            dest: .

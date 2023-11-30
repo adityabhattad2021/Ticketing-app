@@ -63,6 +63,7 @@ export default function SignUpFrom() {
                 description: "Successfully signed up!"
             })
             router.push('/');
+            router.refresh();
         } catch (error) {
             // @ts-ignore
             error.response.data.errors.map(err => {

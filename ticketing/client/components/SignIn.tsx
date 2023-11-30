@@ -58,6 +58,7 @@ export default function SignInForm() {
                 description: "Successfully signed in!"
             })
             router.push('/');
+            router.refresh();
         } catch (error) {
             // @ts-ignore
             error.response.data.errors.map(err => {
