@@ -1,8 +1,8 @@
 import express,{Request,Response} from "express";
 import { body } from "express-validator";
-import { ValidateRequest } from "../middlewares";
+import { ValidateRequest } from "@gittix-microservices/common";
 import { User } from "../models/user";
-import { BadRequestError } from "../errors";
+import { BadRequestError } from "@gittix-microservices/common";
 import { Password } from "../lib/password";
 import jwt from "jsonwebtoken";
 

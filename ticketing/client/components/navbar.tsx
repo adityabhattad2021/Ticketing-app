@@ -62,7 +62,7 @@ export default function Navbar({ currentUser }: NavbarProps) {
 
     return (
         <div className="fixed w-full z-50 flex justify-between items-center py-2 px-4 border-b border-primary/10 bg-secondary h-16">
-            <div className="flex text-2xl items-center">
+            <div className="flex text-3xl items-center">
                 <h1 className={font.className}>
                     GitTix
                 </h1>
@@ -71,7 +71,7 @@ export default function Navbar({ currentUser }: NavbarProps) {
                 {
                     currentUser===null ? routes.map((route) => {
                         return (
-                            <Button variant={"ghost"} onClick={()=>onClick(route.label)}>
+                            <Button key={route.href} variant={"ghost"} onClick={()=>onClick(route.label)}>
                                 <h1 className={cn("font-bold text-lg cursor-pointer", font.className)} >
                                     {route.label}
                                 </h1>

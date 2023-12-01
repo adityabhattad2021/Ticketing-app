@@ -1,8 +1,8 @@
 import express from "express";
 import "express-async-errors"
 import { currentUserRouter, signInRouter, signOutRouter, signUpRouter } from "./routes";
-import { errorHandler } from "./middlewares";
-import { NotFoundError } from "./errors";
+import { errorHandler } from "@gittix-microservices/common";
+import { NotFoundError } from "@gittix-microservices/common";
 import cookieSession from "cookie-session";
 
 const app = express();

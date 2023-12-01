@@ -17,7 +17,6 @@ async function getAuthStatus() {
   return data;
 }
 
-
 export default async function RootLayout({
   children,
 }: {
@@ -25,7 +24,6 @@ export default async function RootLayout({
 }) {
 
   const data: any = await getAuthStatus();
-  console.log(data);
 
   return (
     <html lang="en">
@@ -36,4 +34,5 @@ export default async function RootLayout({
       </body>
     </html>
   )
+
 }

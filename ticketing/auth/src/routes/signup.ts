@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import { body } from 'express-validator';
-import { BadRequestError, } from "../errors";
+import { BadRequestError, } from "@gittix-microservices/common";
 import { User } from "../models/user";
 import jwt from "jsonwebtoken";
-import { ValidateRequest } from "../middlewares";
+import { ValidateRequest } from "@gittix-microservices/common";
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 import express from "express";
-import { CurrentUser } from "../middlewares";
+import { CurrentUser } from "@gittix-microservices/common";
 
 const router = express.Router();
 
