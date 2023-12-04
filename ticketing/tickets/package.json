@@ -1,7 +1,7 @@
 {
-  "name": "auth",
+  "name": "tickets",
   "version": "1.0.0",
-  "description": "",
+  "description": "ticket service",
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev --poll src/index.ts",
@@ -14,8 +14,7 @@
       "./src/test/setup.ts"
     ]
   },
-  "keywords": [], 
-  "author": "",
+  "author": "Aditya Bhattad",
   "license": "ISC",
   "dependencies": {
     "@gittix-microservices/common": "^1.0.3",
