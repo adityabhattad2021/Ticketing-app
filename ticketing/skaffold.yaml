@@ -17,6 +17,10 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: us.gcr.io/eco-plating-387811/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
     - image: us.gcr.io/eco-plating-387811/client
       context: client
       docker:
