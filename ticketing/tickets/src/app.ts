@@ -1,6 +1,6 @@
 import express from "express";
 import "express-async-errors";
-import {errorHandler,NotFoundError} from "@gittix-microservices/common";
+import {errorHandler,NotFoundError,CurrentUser} from "@gittix-microservices/common";
 import cookieSession from "cookie-session";
 import { createTicketRouter } from "./routes";
 
@@ -14,7 +14,7 @@ app.use(
         secure:process.env.NODE_ENV!=='test',
     })
 )
-
+app.use(CurrentUser);
 // All routes will go here
 app.use(createTicketRouter);
 
