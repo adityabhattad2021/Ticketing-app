@@ -8,16 +8,16 @@ interface TicketAttrs {
 }
 
 
+interface TicketModel extends mongoose.Model<TicketDoc>{
+    build(attr:TicketAttrs):TicketDoc
+}
+
 interface TicketDoc extends mongoose.Document {
     title:string;
     price:number;
     userId:string;
 }
 
-
-interface TicketModel extends mongoose.Model<TicketDoc>{
-    build(attr:TicketAttrs):TicketDoc
-}
 
 
 const ticketSchema = new mongoose.Schema({
@@ -43,8 +43,12 @@ const ticketSchema = new mongoose.Schema({
 });
 
 
-ticketSchema.statics.build = (attr:TicketAttrs)=>{
-    return new Ticket(attr);
+ticketSchema.statics.build = (ticketAttribues:TicketAttrs)=>{
+    return new Ticket({
+        title:ticketAttribues.title,
+        price:ticketAttribues.price,
+        userId:ticketAttribues.userId
+    });
 }
 
 const Ticket = mongoose.model<TicketDoc,TicketModel>('Ticket',ticketSchema);

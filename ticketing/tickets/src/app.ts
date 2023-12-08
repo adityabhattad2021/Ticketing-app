@@ -3,6 +3,7 @@ import "express-async-errors";
 import {errorHandler,NotFoundError,CurrentUser} from "@gittix-microservices/common";
 import cookieSession from "cookie-session";
 import { createTicketRouter } from "./routes";
+import { showTicketRouter } from "./routes/show";
 
 const app = express();
 app.set('trust proxy',true);
@@ -17,6 +18,7 @@ app.use(
 app.use(CurrentUser);
 // All routes will go here
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 app.all("*",async ()=>{
     throw new NotFoundError();
