@@ -24,11 +24,11 @@ beforeAll(async ()=>{
 
 
 beforeEach(async ()=>{
-    // const collection = await mongoose.collection.db.collections();
+    const collections = await mongoose.connection.db.collections();
 
-    // for(let collection of collections){
-    //     await collection.deleteMany({})
-    // }
+    for(let collection of collections){
+        await collection.deleteMany({})
+    }
 })
 
 
@@ -36,7 +36,7 @@ afterAll(async ()=>{
     if(mongo){
         await mongo.stop();
     }
-    // await mongoose.collection.close();
+    await mongoose.connection.close();
 })
 
 
