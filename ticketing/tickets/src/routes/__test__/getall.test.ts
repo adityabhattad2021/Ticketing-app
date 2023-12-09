@@ -2,16 +2,7 @@ import request from "supertest";
 import { app } from "../../app";
 import { Ticket } from "../../models/tickets";
 import mongoose from "mongoose";
-
-const createTestTicket = async () => {
-    await request(app)
-        .post('/api/tickets/new')
-        .set('Cookie', signIn())
-        .send({
-            title: 'Test ticket',
-            price: '100'
-        });
-}
+import createTestTicket from "../../utils/createTestTicket";
 
 
 it("Can correctly fetch all the tickets",async ()=>{

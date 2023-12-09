@@ -1,20 +1,19 @@
 import express, {Request,Response} from "express";
-import { RequireAuth,ValidateRequest } from "@gittix-microservices/common";
+import { RequireAuth,ValidateRequest,NotAuthorizedError,NotFoundError } from "@gittix-microservices/common";
 import { body, validationResult } from "express-validator";
 import { Ticket } from "../models/tickets";
 
 const router = express.Router();
 
-router.post(
-    '/api/tickets/new',
+router.put(
+    '/api/tickets/update/:id',
     RequireAuth,
     [
-        body('title')
+        body("title")
             .not()
             .isEmpty()
-            .withMessage('Title is required'),
-            
-        body('price')
+            .withMessage("Title will be required"),
+        body("price")
             .custom(async value=>{
                 try{
                     const floatVal = parseFloat(value);
@@ -24,18 +23,28 @@ router.post(
                 }catch(_){
                     throw new Error("Invalid Price");
                 }
-        })
+            })
     ],
     ValidateRequest,
     async (req:Request,res:Response)=>{
+        const id = req.params.id;
         const {title,price}=req.body;
-        const ticket = Ticket.build({
+
+        const ticket = await Ticket.findById(id);
+        if(!ticket){
+            throw new NotFoundError();
+        }
+        if(ticket.userId!==req.currentUser!.id){
+            throw new NotAuthorizedError();
+        }
+        ticket.set({
             title,
-            price,
-            userId:req.currentUser!.id
+            price
         })
         await ticket.save();
-        res.status(201).send(ticket);
-})
 
-export {router as createTicketRouter};
+        res.status(201).send(ticket);
+    }
+)
+
+export {router as updateTicketRouter};
