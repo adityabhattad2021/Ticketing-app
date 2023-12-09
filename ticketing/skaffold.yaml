@@ -21,6 +21,10 @@ build:
       context: tickets
       docker:
         dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: us.gcr.io/eco-plating-387811/client
       context: client
       docker:

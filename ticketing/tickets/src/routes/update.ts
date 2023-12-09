@@ -1,6 +1,6 @@
 import express, {Request,Response} from "express";
 import { RequireAuth,ValidateRequest,NotAuthorizedError,NotFoundError } from "@gittix-microservices/common";
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 import { Ticket } from "../models/tickets";
 
 const router = express.Router();
