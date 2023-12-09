@@ -1,4 +1,4 @@
-import express, {Request,Response, query} from "express";
+import express, {Request,Response} from "express";
 import { Ticket } from "../models/tickets";
 import { NotFoundError } from "@gittix-microservices/common";
 

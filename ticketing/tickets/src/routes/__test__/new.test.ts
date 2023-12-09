@@ -3,14 +3,14 @@ import { app } from "../../app";
 import { Ticket } from "../../models/tickets";
 
 it("Has a route handler listening to /api/tickets for post requests", async () => {
-    const response = await request(app).post('/api/tickets').send({});
+    const response = await request(app).post('/api/tickets/new').send({});
 
     expect(response.status).not.toEqual(404);
 });
 
 it("Can only be accessed if the user is signed in", async () => {
     await request(app)
-        .post('/api/tickets')
+        .post('/api/tickets/new')
         .send({})
         .expect(401);
 })
@@ -20,7 +20,7 @@ it("Does not return status of 401 if the user is signed in", async () => {
     const cookie = signIn();
 
     const response = await request(app)
-        .post('/api/tickets')
+        .post('/api/tickets/new')
         .set('Cookie', cookie)
         .send({});
 
@@ -31,7 +31,7 @@ it("Does not return status of 401 if the user is signed in", async () => {
 
 it("Returns an error if an invalid title is provided", async () => {
     await request(app)
-        .post('/api/tickets')
+        .post('/api/tickets/new')
         .set('Cookie', signIn())
         .send({
             title: '',
@@ -43,7 +43,7 @@ it("Returns an error if an invalid title is provided", async () => {
 
 it("Returns an error if an invalid price is provided", async () => {
     await request(app)
-        .post('/api/tickets')
+        .post('/api/tickets/new')
         .set('Cookie', signIn())
         .send({
             title: 'This is invalid',
@@ -58,7 +58,7 @@ it("Creates a ticket with valid inputs", async () => {
     expect(tickets.length).toEqual(0);
 
     await request(app)
-        .post('/api/tickets')
+        .post('/api/tickets/new')
         .set('Cookie', signIn())
         .send({
             title: 'This is valid',
