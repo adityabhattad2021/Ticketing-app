@@ -46,4 +46,5 @@ spec:
       targetPort: 4222
     - name: monitering
       protocol: TCP
+      port: 8222
       targetPort: 8222
