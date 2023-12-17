@@ -8,6 +8,7 @@ declare global{
     var signIn:()=>string[];
 }
 
+jest.mock('../nats-wrapper');
 
 let mongo:any;
 beforeAll(async ()=>{
@@ -24,6 +25,10 @@ beforeAll(async ()=>{
 
 
 beforeEach(async ()=>{
+
+    // clear all the fake function implementation data
+    jest.clearAllMocks();
+
     const collections = await mongoose.connection.db.collections();
 
     for(let collection of collections){

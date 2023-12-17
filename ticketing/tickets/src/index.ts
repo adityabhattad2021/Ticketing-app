@@ -9,9 +9,22 @@ const start = async()=>{
     if(!process.env.MONGO_URI){
         throw new Error('MONGO_URI_MUST_BE_DEFINED');
     }
+    if(!process.env.NATS_CLIENT_ID){
+        throw new Error('NATS_CLIENT_ID_IS_NEEDED');
+    }
+    if(!process.env.NATS_CLUSTER_ID){
+        throw new Error('NAT_CLUSTER_ID_IS_NEEDED');
+    }
+    if(!process.env.NATS_URL){
+        throw new Error('NATS_URL_IS_REQUIRED');
+    }
     try{
         // connecting to the NATS client.
-        await natsWrapper.connect('ticketing','abc','http://nats-service:4222');
+        await natsWrapper.connect(
+            process.env.NATS_CLUSTER_ID,
+            process.env.NATS_CLIENT_ID,
+            process.env.NATS_URL
+        );
         natsWrapper.client.on('close',()=>{
             console.log('NATS connection closed');
             process.exit();
