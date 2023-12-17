@@ -2,6 +2,8 @@ import express, {Request,Response} from "express";
 import { RequireAuth,ValidateRequest,NotAuthorizedError,NotFoundError } from "@gittix-microservices/common";
 import { body } from "express-validator";
 import { Ticket } from "../models/tickets";
+import { TicketUpdatedPublisher } from "../events/publisher/ticket-updated-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -42,6 +44,14 @@ router.put(
             price
         })
         await ticket.save();
+
+        // Emmiting the event
+        await new TicketUpdatedPublisher(natsWrapper.client).publish({
+            id:ticket.id,
+            title:ticket.title,
+            price:ticket.price,
+            userId:ticket.userId
+        })
 
         res.status(201).send(ticket);
     }
