@@ -1,9 +1,9 @@
 import request from "supertest";
 import { app } from "../../app";
-import createTestTicket from "../../utils/createTestTicket";
+import createTestTicket from "../../test/utils/createTestTicket";
 
 
-it("Can correctly fetch all the tickets",async ()=>{
+it("Can correctly fetch all the tickets", async () => {
     await createTestTicket();
     await createTestTicket();
     const response = await request(app)

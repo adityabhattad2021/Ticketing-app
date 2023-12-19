@@ -77,4 +77,8 @@ it("Creates the ticket if all the checks are passed",async ()=>{
             ticketId:ticket.id
         })
         .expect(201);
+
+    // check if an order exists in database
+    const allOrders = await Order.find({});
+    expect(allOrders.length).toEqual(1);
 })

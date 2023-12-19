@@ -1,9 +1,9 @@
 import request from "supertest";
-import { app } from "../app";
+import { app } from "../../app";
 
 
 export default async function createTestTicket() {
-    const response=await request(app)
+    const response = await request(app)
         .post('/api/tickets/new')
         .set('Cookie', signIn())
         .send({

@@ -2,7 +2,7 @@ import request from "supertest";
 import { app } from "../../app";
 import { Ticket } from "../../models/tickets";
 import mongoose from "mongoose";
-import createTestTicket from "../../utils/createTestTicket";
+import createTestTicket from "../../test/utils/createTestTicket";
 
 it("Returns 404 if provided id does not exists", async () => {
     let fakeId = new mongoose.Types.ObjectId().toHexString();
@@ -63,7 +63,7 @@ it("Correctly updates a ticket", async () => {
     const newPrice = 600;
 
     // Trying to update it using another user.
-    const updateResponse=await request(app)
+    const updateResponse = await request(app)
         .put(`/api/tickets/update/${ticketId}`)
         .set('Cookie', cookie)
         .send({
