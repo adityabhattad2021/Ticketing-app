@@ -1,6 +1,5 @@
 import request from "supertest";
 import { app } from "../../app";
-import { Ticket } from "../../models/ticket";
 import { Order } from "../../models/order";
 import mongoose from "mongoose";
 import createTestTicket from "../../test/utils/createTestTicket";

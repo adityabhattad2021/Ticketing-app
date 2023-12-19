@@ -5,6 +5,7 @@ import cookieSession from "cookie-session";
 import { getAllOrdersRouter } from "./routes/getall";
 import { createOrderRouter } from "./routes/new";
 import { getOrderByIdRouter } from "./routes/get-by-id";
+import { deleteOrderRouter } from "./routes/delete";
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(CurrentUser);
 app.use(createOrderRouter);
 app.use(getOrderByIdRouter);
 app.use(getAllOrdersRouter);
+app.use(deleteOrderRouter);
 
 
 
