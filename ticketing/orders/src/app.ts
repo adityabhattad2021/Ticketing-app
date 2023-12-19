@@ -4,6 +4,7 @@ import { errorHandler,NotFoundError,CurrentUser } from "@gittix-microservices/co
 import cookieSession from "cookie-session";
 import { getAllOrdersRouter } from "./routes/getall";
 import { createOrderRouter } from "./routes/new";
+import { getOrderByIdRouter } from "./routes/get-by-id";
 
 
 const app = express();
@@ -19,8 +20,9 @@ app.use(
 app.use(CurrentUser);
 
 // All routes will go here
+app.use(createOrderRouter);
+app.use(getOrderByIdRouter);
 app.use(getAllOrdersRouter);
-app.use(createOrderRouter)
 
 
 
