@@ -1,11 +1,18 @@
+import { RequireAuth } from "@gittix-microservices/common";
 import express, {Request,Response, Router} from "express";
+import { Order } from "../models/order";
 
 const router = express.Router();
 
 router.get(
     '/api/orders',
-    async (req:Request,res:Response)=>{
-        res.send({}).status(200);
+    RequireAuth,
+    async (req:Request,res:Response)=>{        
+        const allOrders = await Order.find({
+            userId:req.currentUser!.id
+        }).populate('ticket');
+        
+        res.send(allOrders).status(200);
     }
 )
 
