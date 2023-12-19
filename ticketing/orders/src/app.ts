@@ -3,6 +3,7 @@ import "express-async-errors";
 import { errorHandler,NotFoundError,CurrentUser } from "@gittix-microservices/common";
 import cookieSession from "cookie-session";
 import { getAllOrdersRouter } from "./routes/getall";
+import { createOrderRouter } from "./routes/new";
 
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(CurrentUser);
 
 // All routes will go here
 app.use(getAllOrdersRouter);
+app.use(createOrderRouter)
 
 
 
