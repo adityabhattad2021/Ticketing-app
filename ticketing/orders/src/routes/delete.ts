@@ -1,6 +1,8 @@
 import { BadRequestError, NotAuthorizedError, NotFoundError, OrderStatus, RequireAuth } from "@gittix-microservices/common";
 import express,{Request,Response} from "express";
 import { Order } from "../models/order";
+import { OrderCancelledPublisher } from "../events/publisher/order-cancelled-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 
 const router = express.Router();
@@ -22,6 +24,18 @@ router.delete(
         }
         order.status = OrderStatus.Cancelled;
         await order.save();
+
+        await new OrderCancelledPublisher(natsWrapper.client).publish({
+            id:order.id,
+            status:order.status,
+            userId:order.userId,
+            expiresAt:order.expiresAt.toISOString(),
+            ticket:{
+                id:order.ticket.id,
+                price:order.ticket.price
+            }
+        })
+
         res.status(200).send(order);
     }
 )
