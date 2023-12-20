@@ -4,6 +4,7 @@ import { Order } from "./order";
 import { OrderStatus } from "@gittix-microservices/common";
 
 interface TicketAttr{
+    id:string;
     title:string;
     price:number;
 }
@@ -33,6 +34,7 @@ const ticketSchema = new mongoose.Schema({
 
 ticketSchema.statics.build = (ticketAttributes:TicketAttr)=>{
     return new Ticket({
+        _id:ticketAttributes.id,
         title:ticketAttributes.title,
         price:ticketAttributes.price
     });
