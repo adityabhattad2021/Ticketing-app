@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import createTestTicket from "../../test/utils/createTestTicket";
 import createTestOrder from "../../test/utils/createTestOrder";
 import { OrderStatus } from "@gittix-microservices/common";
+import { natsWrapper } from "../../nats-wrapper";
 
 it("Has a route hanlder listening to /api/orders/delete/abc for post requests",async ()=>{
     const response = await request(app).delete('/api/orders/delete/abc').send({});
@@ -44,4 +45,17 @@ it("Deletes the order if the every other check is passed",async ()=>{
                 .expect(200);
     
     expect(cancelledOrder.status).toEqual(OrderStatus.Cancelled);
+});
+
+
+it("Emits an order cancelled event",async ()=>{
+    const user = signIn();
+    const ticket = await createTestTicket();
+    const order = await createTestOrder(ticket,user);
+    await request(app)
+                .delete(`/api/orders/delete/${order.id}`)
+                .set('Cookie',user)
+                .expect(200);
+    
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

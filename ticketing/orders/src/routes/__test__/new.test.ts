@@ -4,6 +4,7 @@ import { Order } from "../../models/order";
 import mongoose from "mongoose";
 import createTestTicket from "../../test/utils/createTestTicket";
 import createTestOrder from "../../test/utils/createTestOrder";
+import { natsWrapper } from "../../nats-wrapper";
 
 it("Has a route hanlder listening to /api/orders/new for post requests",async ()=>{
     const response = await request(app).post('/api/orders/new').send({});
@@ -80,4 +81,15 @@ it("Creates the ticket if all the checks are passed",async ()=>{
     // check if an order exists in database
     const allOrders = await Order.find({});
     expect(allOrders.length).toEqual(1);
+})
+
+it("Emits an order created event",async ()=>{
+    const ticket = await createTestTicket();
+    const user = signIn();
+    const order = await createTestOrder(ticket,user);
+
+    // check if an order exists in database
+    const allOrders = await Order.find({});
+    expect(allOrders.length).toEqual(1);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
 })
