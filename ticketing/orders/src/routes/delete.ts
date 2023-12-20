@@ -1,4 +1,4 @@
-import { BadRequestError, NotAuthorizedError, NotFoundError, OrderStatus, RequireAuth, ValidateRequest } from "@gittix-microservices/common";
+import { BadRequestError, NotAuthorizedError, NotFoundError, OrderStatus, RequireAuth } from "@gittix-microservices/common";
 import express,{Request,Response} from "express";
 import { Order } from "../models/order";
 
