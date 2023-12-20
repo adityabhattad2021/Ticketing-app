@@ -3,6 +3,7 @@ import { app } from "../../app";
 import { Ticket } from "../../models/tickets";
 import mongoose from "mongoose";
 import createTestTicket from "../../test/utils/createTestTicket";
+import { natsWrapper } from "../../nats-wrapper";
 
 it("Returns 404 if provided id does not exists", async () => {
     let fakeId = new mongoose.Types.ObjectId().toHexString();
@@ -53,7 +54,7 @@ it("Correctly updates a ticket", async () => {
         .post('/api/tickets/new')
         .set('Cookie', cookie)
         .send({
-            title: 'This is valid',
+            title: 'A valid title',
             price: '200'
         });
 
@@ -62,7 +63,7 @@ it("Correctly updates a ticket", async () => {
     const newTitle = "Updated title";
     const newPrice = 600;
 
-    // Trying to update it using another user.
+    // Trying to update it using same user.
     const updateResponse = await request(app)
         .put(`/api/tickets/update/${ticketId}`)
         .set('Cookie', cookie)
@@ -74,3 +75,31 @@ it("Correctly updates a ticket", async () => {
     expect(updateResponse.body.title).toEqual(newTitle);
     expect(updateResponse.body.price).toEqual(newPrice);
 })
+
+
+it("Emits an event after updating a ticket", async () => {
+    const cookie = signIn();
+
+    const response = await request(app)
+        .post('/api/tickets/new')
+        .set('Cookie', cookie)
+        .send({
+            title: 'A valid title',
+            price: '200'
+        });
+
+    const ticketId = response.body.id;
+
+    const newTitle = "Updated title";
+    const newPrice = 600;
+
+    await request(app)
+        .put(`/api/tickets/update/${ticketId}`)
+        .set('Cookie', cookie)
+        .send({
+            title: newTitle,
+            price: newPrice
+        }).expect(201);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
