@@ -1,6 +1,9 @@
 import request from "supertest";
 import { app } from "../../app";
 import mongoose from "mongoose";
+import createTestTicket from "../../test/utils/createTestTicket";
+import createTestOrder from "../../test/utils/createTestOrder";
+import { OrderStatus } from "@gittix-microservices/common";
 
 it("Has a route hanlder listening to /api/orders/delete/abc for post requests",async ()=>{
     const response = await request(app).delete('/api/orders/delete/abc').send({});
@@ -25,10 +28,20 @@ it("Returns 401 if the user is not authenticated", async () => {
 it("Returns 404 if the order is not found",async ()=>{
     const fakeId = new mongoose.Types.ObjectId().toHexString();
     await request(app)
-                .delete(`/api.orders/delete/${fakeId}`)
+                .delete(`/api/orders/delete/${fakeId}`)
                 .set('Cookie',signIn())
                 .expect(404);
 })
 
 
-it.todo("Deletes the order if the every other check is passed");
+it("Deletes the order if the every other check is passed",async ()=>{
+    const user = signIn();
+    const ticket = await createTestTicket();
+    const order = await createTestOrder(ticket,user);
+    const {body:cancelledOrder}=await request(app)
+                .delete(`/api/orders/delete/${order.id}`)
+                .set('Cookie',user)
+                .expect(200);
+    
+    expect(cancelledOrder.status).toEqual(OrderStatus.Cancelled);
+});

@@ -21,8 +21,8 @@ router.delete(
             throw new BadRequestError("The already compleated order cannot be cancelled");
         }
         order.status = OrderStatus.Cancelled;
-        order.save();
-        res.status(204).send(order);
+        await order.save();
+        res.status(200).send(order);
     }
 )
 
