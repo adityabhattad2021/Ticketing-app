@@ -3,7 +3,7 @@ import { queueGroupName } from "./constants/queue-group-name";
 import { Message } from "node-nats-streaming";
 import { Ticket } from "../../models/ticket";
 
-export class TicketCreatedListener extends Listner<TicketCreatedEvent> {
+export class TicketCreatedListner extends Listner<TicketCreatedEvent> {
     readonly subject = Subjects.TicketCreated;
     readonly queueGroupName = queueGroupName;
 
