@@ -1,6 +1,7 @@
 import { OrderStatus } from "@gittix-microservices/common";
 import mongoose from "mongoose";
 import { TicketDoc } from "./common/ticket-document";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 
 interface OrderAttrs {
@@ -14,7 +15,9 @@ interface OrderDoc extends mongoose.Document {
     userId:string;
     status:string;
     expiresAt:Date;
+    version:number;
     ticket:TicketDoc;
+
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -47,6 +50,9 @@ const orderSchema = new mongoose.Schema({
         }
     }
 })
+
+orderSchema.set('versionKey','version');
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (orderAttributes:OrderAttrs)=>{
     return new Order({
