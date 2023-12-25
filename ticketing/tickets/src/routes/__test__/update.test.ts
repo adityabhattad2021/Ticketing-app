@@ -46,6 +46,36 @@ it("Returns 401 if the user does not owns the ticket", async () => {
         }).expect(401);
 })
 
+it("Returns 400 if user tries to update the ticket, if it has order id",async()=>{
+    const cookie = signIn();
+
+    // Creating a ticket with one userId
+    const response = await request(app)
+        .post('/api/tickets/new')
+        .set('Cookie', cookie)
+        .send({
+            title: 'A valid title',
+            price: '200'
+        });
+
+    const ticketId = response.body.id;
+    const newTitle = "Updated title";
+    const newPrice = 600;
+
+    const ticket = await Ticket.findById(ticketId);
+    ticket!.set({orderId:new mongoose.Types.ObjectId().toHexString()});
+    ticket!.save();
+
+    // Trying to update it using same user.
+    const updateResponse = await request(app)
+        .put(`/api/tickets/update/${ticketId}`)
+        .set('Cookie', cookie)
+        .send({
+            title: newTitle,
+            price: newPrice
+        }).expect(400);
+})
+
 it("Correctly updates a ticket", async () => {
     const cookie = signIn();
 

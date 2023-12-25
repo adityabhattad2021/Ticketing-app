@@ -1,5 +1,5 @@
 import express, {Request,Response} from "express";
-import { RequireAuth,ValidateRequest,NotAuthorizedError,NotFoundError } from "@gittix-microservices/common";
+import { RequireAuth,ValidateRequest,NotAuthorizedError,NotFoundError, BadRequestError } from "@gittix-microservices/common";
 import { body } from "express-validator";
 import { Ticket } from "../models/tickets";
 import { TicketUpdatedPublisher } from "../events/publisher/ticket-updated-publisher";
@@ -35,6 +35,10 @@ router.put(
         const ticket = await Ticket.findById(id);
         if(!ticket){
             throw new NotFoundError();
+        }
+        // Cannot update a ticket when there is an related order that is processing 
+        if(ticket.orderId){
+            throw new BadRequestError("Cannot edit the ticket while there is an order related to it, is processing.");
         }
         if(ticket.userId!==req.currentUser!.id){
             throw new NotAuthorizedError();
