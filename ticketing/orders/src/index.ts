@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper";
-import { TicketCreatedListner } from "./events/listner/ticket-created-listner";
-import { TicketUpdatedListner } from "./events/listner/ticket-updated-listner";
+import { TicketCreatedListner } from "./events/listener/ticket-created-listener";
+import { TicketUpdatedListner } from "./events/listener/ticket-updated-listener";
 
 
 const start = async ()=>{
