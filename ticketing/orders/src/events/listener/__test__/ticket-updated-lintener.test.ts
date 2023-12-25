@@ -20,7 +20,8 @@ async function setUp() {
         title: 'An updated ticket',
         userId: new mongoose.Types.ObjectId().toHexString(),
         price: 300,
-        version: 1
+        version: 1,
+        orderId:undefined
     };
 
     // @ts-ignore

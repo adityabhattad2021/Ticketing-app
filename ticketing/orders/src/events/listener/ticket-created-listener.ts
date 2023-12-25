@@ -1,11 +1,11 @@
-import { Listner, Subjects, TicketCreatedEvent } from "@gittix-microservices/common";
+import { Listener, Subjects, TicketCreatedEvent } from "@gittix-microservices/common";
 import { queueGroupName } from "./constants/queue-group-name";
 import { Message } from "node-nats-streaming";
 import { Ticket } from "../../models/ticket";
 
-export class TicketCreatedListner extends Listner<TicketCreatedEvent> {
+export class TicketCreatedListner extends Listener<TicketCreatedEvent> {
     readonly subject = Subjects.TicketCreated;
-    readonly queueGroupName = queueGroupName;
+    readonly queueGroupName:string = queueGroupName;
 
     async onMessage(data:TicketCreatedEvent['data'],msg:Message){
         const {id,title,price}=data;

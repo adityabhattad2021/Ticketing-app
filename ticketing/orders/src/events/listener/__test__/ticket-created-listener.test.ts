@@ -13,7 +13,8 @@ async function setUp() {
         title: 'A title',
         userId: new mongoose.Types.ObjectId().toHexString(),
         price: 200,
-        version: 0
+        version: 0,
+        orderId:undefined
     };
 
     // @ts-ignore
