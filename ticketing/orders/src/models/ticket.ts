@@ -2,6 +2,7 @@ import mongoose, { mongo } from "mongoose";
 import { TicketDoc } from "./common/ticket-document";
 import { Order } from "./order";
 import { OrderStatus } from "@gittix-microservices/common";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface TicketAttr{
     id:string;
@@ -11,6 +12,7 @@ interface TicketAttr{
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
     build(attr:TicketAttr):TicketDoc;
+    findByEvent(event:{id:string,version:number}):Promise<TicketDoc | null>;
 }
 
 const ticketSchema = new mongoose.Schema({
@@ -31,6 +33,16 @@ const ticketSchema = new mongoose.Schema({
         }
     }
 })
+
+ticketSchema.set('versionKey','version');
+ticketSchema.plugin(updateIfCurrentPlugin);
+
+ticketSchema.statics.findByEvent=(event:{id:string,version:number})=>{
+    return Ticket.findOne({
+        _id:event.id,
+        version:event.version-1
+    })
+}   
 
 ticketSchema.statics.build = (ticketAttributes:TicketAttr)=>{
     return new Ticket({
