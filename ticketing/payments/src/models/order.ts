@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface OrderAttrs {
+    id:string;
     status:OrderStatus;
     userId:string;
     price:number;
+    version:number;
 }
 
 interface OrderDoc extends mongoose.Document {
@@ -49,9 +51,11 @@ orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (orderAttributes:OrderAttrs)=>{
     return new Order({
+        _id:orderAttributes.id,
         userId:orderAttributes.userId,
         status:orderAttributes.status,
         price:orderAttributes.price,
+        version:orderAttributes.version,
     });
 }
 
