@@ -1,3 +1,4 @@
+import { OrderCreatedListener } from "./events/listener/order-created-listener";
 import { natsWrapper } from "./nats-wrapper";
 
 const start = async ()=>{
@@ -24,7 +25,9 @@ const start = async ()=>{
         })
         process.on('SIGINT',()=>natsWrapper.client.close());
         process.on('SIGTERM',()=>natsWrapper.client.close());
-        // Connect to Redis.
+
+        new OrderCreatedListener(natsWrapper.client).listen();
+        
     }catch(error){
         console.log('[ERROR_CONNECTING_TO_REDIS/NATS_SERVER',error);   
     }

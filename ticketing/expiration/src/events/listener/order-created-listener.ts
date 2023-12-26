@@ -1,5 +1,5 @@
 import { Listener, OrderCreatedEvent, Subjects } from "@gittix-microservices/common";
-import { queueGroupName } from "../constant/queue-group-name";
+import { queueGroupName } from "./constant/queue-group-name";
 import { Message } from "node-nats-streaming";
 import { expirationQueue } from "../../queues/expiration-queue";
 
