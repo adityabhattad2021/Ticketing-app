@@ -4,8 +4,6 @@ import { natsWrapper } from "./nats-wrapper";
 import { TicketCreatedListner,TicketUpdatedListner } from "./events/listener";
 import { ExpirationCompletedListener } from "./events/listener/expiration-completed-listener";
 
-
-
 const start = async ()=>{
     if(!process.env.JWT_KEY){
         throw new Error('JWT_KEY_MUST_BE_DEFINED');
