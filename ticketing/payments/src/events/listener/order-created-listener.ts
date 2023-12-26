@@ -8,6 +8,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent>{
     readonly queueGroupName: string = queueGroupName;
 
     async onMessage(data:OrderCreatedEvent['data'],msg:Message){
+        console.log(data);
+        
         const order = Order.build({
             id:data.id,
             userId:data.userId,

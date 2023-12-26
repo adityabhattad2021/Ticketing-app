@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { app } from "./app";
 import { OrderCancelledListener } from "./events/listener/order-cancelled-listener";
 import { OrderCreatedListener } from "./events/listener/order-created-listener";
@@ -38,6 +39,8 @@ const start = async ()=>{
         new OrderCreatedListener(natsWrapper.client).listen();
         new OrderCancelledListener(natsWrapper.client).listen();
 
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('[SUCCESSFULLY_CONNECTED_TO_MONGOOSE]');
     }catch(error){
         console.log('[ERROR_CONNECTING_TO_MONGODB/NATS_SERVER]',error);
     }

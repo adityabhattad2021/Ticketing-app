@@ -37,7 +37,7 @@ it("Correctly creates and order object with matching orderId",async ()=>{
 
     const order = await Order.findById(orderId);
 
-    expect(order).toBeDefined();
+    expect(order).not.toBeNull();
 });
 
 it("Acknowledges the message after replicating the order in payments microservice",async ()=>{
