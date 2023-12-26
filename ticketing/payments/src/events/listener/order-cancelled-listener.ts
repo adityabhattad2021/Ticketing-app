@@ -8,7 +8,10 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent>{
     readonly queueGroupName: string = queueGroupName;
 
     async onMessage(data: OrderCancelledEvent['data'], msg: Message) {
-        const order = await Order.findById(data.id);
+        const order = await Order.findOne({
+            id:data.id,
+            version:data.version-1,
+        });
         if (!order) {
             throw new Error('No order found for the provided id');
         }
