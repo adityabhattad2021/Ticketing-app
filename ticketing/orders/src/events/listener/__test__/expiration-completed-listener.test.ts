@@ -5,7 +5,6 @@ import createTestTicket from "../../../test/utils/createTestTicket";
 import { ExpirationCompletedListener } from "../expiration-completed-listener";
 import { Message } from "node-nats-streaming";
 import { Order } from "../../../models/order";
-import e from "express";
 
 async function setUp() {
     const listener = new ExpirationCompletedListener(natsWrapper.client);

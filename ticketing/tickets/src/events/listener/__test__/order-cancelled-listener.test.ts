@@ -22,7 +22,7 @@ async function setUp() {
         id: orderId,
         status: OrderStatus.Created,
         userId: new mongoose.Types.ObjectId().toHexString(),
-        expiresAt: new Date().toISOString() + 15 * 60,
+        expiresAt: new Date().toISOString(),
         version: 0,
         ticket: {
             id: ticket.id,
