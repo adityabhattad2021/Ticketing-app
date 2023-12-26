@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        apps: expiration
+        app: expiration
     spec:
       containers:
         - name: expiration
