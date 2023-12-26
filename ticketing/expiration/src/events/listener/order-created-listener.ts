@@ -9,6 +9,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent>{
     readonly queueGroupName: string = queueGroupName;
 
     async onMessage(data:OrderCreatedEvent['data'],msg:Message){
+        
         const delay = new Date(data.expiresAt).getTime() - new Date().getTime();    
         console.log(`there will be delay of ${delay}.`);
 
