@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 import { OrderStatus } from "@gittix-microservices/common";
 
 it("Has a route handler listening to /api/payments/new",async()=>{
-
     const order = Order.build({
         id: new mongoose.Types.ObjectId().toHexString(),
         userId: 'abc',
