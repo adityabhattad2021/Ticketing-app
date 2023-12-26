@@ -19,9 +19,6 @@ async function setUp() {
     })
     await order.save();
 
-    console.log(order.version,order.id);
-    
-
     const data: OrderCancelledEvent['data'] = {
         id: order.id,
         status: order.status,
