@@ -8,4 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - runs: cd ticketing/auth && npm install && npm run test:ci
+      - name: Run tests
+        run: |
+          cd ticketing/auth
+          npm install
+          npm run test:ci
