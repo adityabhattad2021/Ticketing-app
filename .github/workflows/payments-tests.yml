@@ -1,7 +1,11 @@
 name: payments-tests
 
 on: 
-  pull_request
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'ticketing/payments/**'
 
 jobs:
   build:

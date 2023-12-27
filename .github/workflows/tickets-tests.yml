@@ -1,7 +1,11 @@
 name: tickets-tests
 
 on: 
-  pull_request
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'ticketing/tickets/**'
 
 jobs:
   build:

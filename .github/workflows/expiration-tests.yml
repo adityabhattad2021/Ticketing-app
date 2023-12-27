@@ -1,7 +1,11 @@
 name: expiration-tests
 
-on: 
-  pull_request
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'ticketing/expiration/**'
 
 jobs:
   build:

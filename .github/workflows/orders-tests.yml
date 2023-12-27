@@ -1,8 +1,11 @@
 name: orders-tests
 
 on: 
-  pull_request
-
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'ticketing/orders/**'
 jobs:
   build:
     runs-on: ubuntu-latest

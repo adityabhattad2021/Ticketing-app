@@ -1,7 +1,11 @@
 name: auth-tests
 
 on: 
-  pull_request
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'ticketing/auth/**'
 
 jobs:
   build:
