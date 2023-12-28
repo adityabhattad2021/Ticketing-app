@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: auth
-          image: us.gcr.io/eco-plating-387811/auth
+          image: us.gcr.io/ticketing-xyz/auth
           env:
             - name: MONGO_URI
-              value: 'mongodb://auth-mongo-service:27017/auth' 
+              value: 'mongodb://auth-mongo-service:27017/auth'
             - name: JWT_KEY
-              valueFrom: 
+              valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
