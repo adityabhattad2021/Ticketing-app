@@ -52,7 +52,7 @@ router.post(
         await order.save();
     
         // TODO: Emit an event 
-        await new OrderCreatedPublisher(natsWrapper.client).publish({
+        await new OrderCreatedPublisher(natsWrapper.jsClient).publish({
             id:order.id,
             status:order.status,
             userId:order.userId,

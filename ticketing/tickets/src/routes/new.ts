@@ -41,7 +41,7 @@ router.post(
         await ticket.save();
 
         // Emitting the event
-        await new TicketCreatedPublisher(natsWrapper.client).publish({
+        await new TicketCreatedPublisher(natsWrapper.jsClient).publish({
             id:ticket.id,
             title:ticket.title,
             price:ticket.price,

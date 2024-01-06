@@ -23,20 +23,14 @@ const start = async()=>{
     try{
         // connecting to the NATS client.
         await natsWrapper.connect(
-            process.env.NATS_CLUSTER_ID,
-            process.env.NATS_CLIENT_ID,
             process.env.NATS_URL
         );
-        natsWrapper.client.on('close',()=>{
-            console.log('NATS connection closed');
-            process.exit();
-        })
-        process.on('SIGINT',()=>natsWrapper.client.close()); 
-        process.on('SIGTERM',()=>natsWrapper.client.close()); 
+        process.on('SIGINT',()=>natsWrapper.close()); 
+        process.on('SIGTERM',()=>natsWrapper.close()); 
 
         // Initializing the event listners
-        new OrderCreatedListner(natsWrapper.client).listen();
-        new OrderCancelledListener(natsWrapper.client).listen();
+        new OrderCreatedListner(natsWrapper.jsClient).listen();
+        new OrderCancelledListener(natsWrapper.jsClient).listen();
 
         await mongoose.connect(process.env.MONGO_URI);
         console.log('[SUCCESSFULLY_CONNECTED_TO_MONGOOSE]');

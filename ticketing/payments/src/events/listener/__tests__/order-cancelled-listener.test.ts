@@ -3,10 +3,10 @@ import { Order } from "../../../models/order";
 import { natsWrapper } from "../../../nats-wrapper";
 import { OrderCancelledListener } from "../order-cancelled-listener";
 import { OrderCancelledEvent, OrderStatus } from "@gittix-microservices/common";
-import { Message } from "node-nats-streaming";
+import { JsMsg } from "nats";
 
 async function setUp() {
-    const listener = new OrderCancelledListener(natsWrapper.client);
+    const listener = new OrderCancelledListener(natsWrapper.jsClient);
 
     const orderId = new mongoose.Types.ObjectId().toHexString();
 
@@ -32,7 +32,7 @@ async function setUp() {
     }
 
     // @ts-ignore
-    const msg:Message = {
+    const msg:JsMsg = {
         ack:jest.fn(),
     }
 

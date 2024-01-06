@@ -2,11 +2,11 @@ import { TicketCreatedEvent } from "@gittix-microservices/common";
 import { natsWrapper } from "../../../nats-wrapper";
 import { TicketCreatedListner } from "../ticket-created-listener";
 import mongoose from "mongoose";
-import { Message } from "node-nats-streaming";
 import { Ticket } from "../../../models/ticket";
+import { JsMsg } from "nats";
 
 async function setUp() {
-    const listener = new TicketCreatedListner(natsWrapper.client);
+    const listener = new TicketCreatedListner(natsWrapper.jsClient);
 
     const data: TicketCreatedEvent['data'] = {
         id: new mongoose.Types.ObjectId().toHexString(),
@@ -18,7 +18,7 @@ async function setUp() {
     };
 
     // @ts-ignore
-    const msg: Message = {
+    const msg: JsMsg = {
         ack: jest.fn()
     }
 

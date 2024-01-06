@@ -3,11 +3,11 @@ import { natsWrapper } from "../../../nats-wrapper";
 import { OrderCreatedListner } from "../order-created-listener";
 import mongoose from "mongoose";
 import { Ticket } from "../../../models/tickets";
-import { Message } from "node-nats-streaming";
 import { OrderCancelledListener } from "../order-cancelled-listener";
+import { JsMsg } from "nats";
 
 async function setUp() {
-    const listener = new OrderCancelledListener(natsWrapper.client);
+    const listener = new OrderCancelledListener(natsWrapper.jsClient);
 
     const ticket = Ticket.build({
         title: 'A ticket',
@@ -31,7 +31,7 @@ async function setUp() {
     }
 
     // @ts-ignore
-    const msg: Message = {
+    const msg: JsMsg = {
         ack: jest.fn()
     }
 

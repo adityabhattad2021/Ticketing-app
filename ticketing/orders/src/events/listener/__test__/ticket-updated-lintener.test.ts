@@ -3,10 +3,9 @@ import { Ticket } from "../../../models/ticket";
 import { natsWrapper } from "../../../nats-wrapper";
 import { TicketUpdatedListner } from "../ticket-updated-listener";
 import { TicketUpdatedEvent } from "@gittix-microservices/common";
-import { Message } from "node-nats-streaming";
 
 async function setUp() {
-    const listener = new TicketUpdatedListner(natsWrapper.client);
+    const listener = new TicketUpdatedListner(natsWrapper.jsClient);
 
     const ticket = Ticket.build({
         id: new mongoose.Types.ObjectId().toHexString(),

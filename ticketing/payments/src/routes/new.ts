@@ -41,7 +41,7 @@ router.post(
             source:token
         });
 
-        await new PaymentCreatedPublisher(natsWrapper.client).publish({
+        await new PaymentCreatedPublisher(natsWrapper.jsClient).publish({
             orderId:order.id,
             price:order.price
         })

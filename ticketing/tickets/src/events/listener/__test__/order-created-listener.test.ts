@@ -3,10 +3,9 @@ import { natsWrapper } from "../../../nats-wrapper";
 import { OrderCreatedListner } from "../order-created-listener";
 import mongoose from "mongoose";
 import { Ticket } from "../../../models/tickets";
-import { Message } from "node-nats-streaming";
 
 async function setUp() {
-    const listener = new OrderCreatedListner(natsWrapper.client);
+    const listener = new OrderCreatedListner(natsWrapper.jsClient);
 
     const ticket = Ticket.build({
         title: 'A ticket',

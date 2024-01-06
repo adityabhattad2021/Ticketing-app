@@ -3,10 +3,9 @@ import { Order } from "../../../models/order";
 import { natsWrapper } from "../../../nats-wrapper";
 import { OrderCreatedListener } from "../order-created-listener";
 import { OrderCreatedEvent, OrderStatus } from "@gittix-microservices/common";
-import { Message } from "node-nats-streaming";
 
 async function setUp() {
-    const listener = new OrderCreatedListener(natsWrapper.client);
+    const listener = new OrderCreatedListener(natsWrapper.jsClient);
 
     const orderId = new mongoose.Types.ObjectId().toHexString();
     const data: OrderCreatedEvent['data'] = {

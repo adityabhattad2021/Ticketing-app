@@ -3,11 +3,11 @@ import { natsWrapper } from "../../../nats-wrapper";
 import createTestOrder from "../../../test/utils/createTestOrder";
 import createTestTicket from "../../../test/utils/createTestTicket";
 import { ExpirationCompletedListener } from "../expiration-completed-listener";
-import { Message } from "node-nats-streaming";
 import { Order } from "../../../models/order";
+import { JsMsg } from "nats";
 
 async function setUp() {
-    const listener = new ExpirationCompletedListener(natsWrapper.client);
+    const listener = new ExpirationCompletedListener(natsWrapper.jsClient);
 
     const ticket = await createTestTicket();
     const user = signIn();
@@ -18,7 +18,7 @@ async function setUp() {
     }
 
     // @ts-ignore
-    const msg: Message = {
+    const msg: JsMsg = {
         ack: jest.fn()
     }
 
