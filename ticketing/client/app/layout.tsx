@@ -11,9 +11,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'Gittix',
   description: 'A microservices based ticketing application',
-  icons:{
-    icon:''
-  }
+  // icons:{
+  //   icon:''
+  // }
 }
 
 export default function RootLayout({
