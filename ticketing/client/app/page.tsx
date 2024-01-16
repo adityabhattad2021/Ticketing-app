@@ -3,7 +3,7 @@ import Link from "next/link"
 
 async function getAuthStatus() {
   const axiosClient = buildClient();
-  const { data } = await axiosClient.get('/api/users/currentUser');
+  const { data } = await axiosClient.get('/api/users/currentUser');  
   return data;
 }
 
